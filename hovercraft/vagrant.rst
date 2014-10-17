@@ -19,6 +19,30 @@ Vagrant and Chef-Solo
 :data-x: r+1100
 :data-y: 0
 
+Painel da Bolsa Project
+=======================
+
+https://github.com/fernandoe/paineldabolsa-server
+
++---------------------------------------+-----------------------------------------+
+| .. image:: images/nginx-logo.jpg      |  .. image:: images/redis-logo.png       |
+|         :width: 300px                 |          :width: 300px                  |
++---------------------------------------+-----------------------------------------+
+| .. image:: images/python-logo.jpg     |  .. image:: images/virtualenv-logo.gif  |
+|         :width: 300px                 |          :width: 200px                  |
++---------------------------------------+-----------------------------------------+
+| .. image:: images/django-logo.png                                               |
+|         :width: 300px                                                           |
++---------------------------------------------------------------------------------+
+
+Demo: http://www.paineldabolsa.com.br
+
+.. note::
+
+    git clone https://github.com/fernandoe/paineldabolsa-server
+
+----
+
 Get and Install Vagrant
 =======================
 
@@ -88,6 +112,28 @@ Other Commands
     $ vagrant status
     $ vagrant ssh
     $ vagrant destroy
+
+----
+
+Vagrant Plugins
+===============
+
+Install the following plugins
+
+.. code:: bash
+
+    $ vagrant plugin install vagrant-omnibus
+    $ vagrant plugin install vagrant-proxyconf
+
+Add to the *Vagrantfile*
+
+.. code:: ruby
+
+    # config.omnibus.chef_version = :latest
+    config.omnibus.chef_version = "11.16.4"
+
+    config.proxy.http  = "http://proxy:port/"
+    config.proxy.https = "http://proxy:port/"
 
 ----
 
@@ -179,28 +225,6 @@ Knife Configuration
         * http_proxy "http://proxy:port"
     
         * https_proxy "http://proxy:port"
-
-----
-
-Vagrant Plugins
-===================
-
-Install the following plugins
-
-.. code:: bash
-
-    $ vagrant plugin install vagrant-omnibus
-    $ vagrant plugin install vagrant-proxyconf
-
-Add to the *Vagrantfile*
-
-.. code:: ruby
-
-    # config.omnibus.chef_version = :latest
-    config.omnibus.chef_version = "11.16.4"
-
-    config.proxy.http  = "http://proxy:port/"
-    config.proxy.https = "http://proxy:port/"
 
 ----
 
