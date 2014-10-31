@@ -261,20 +261,6 @@ Our first Chef cookbook
 Getting Cookbooks
 =================
 
-**virtualenvwrapper**
----------------------
-
-.. code:: bash
-
-    $ knife cookbook site download virtualenvwrapper
-    $ tar zxf virtualenvwrapper*
-    $ rm virtualenvwrapper*.tar.gz
-
-----
-
-Getting Cookbooks
-=================
-
 **redis**
 ---------
 
@@ -283,6 +269,20 @@ Getting Cookbooks
     $ knife cookbook site download redis
     $ tar zxf redis*
     $ rm redis*.tar.gz
+
+----
+
+Getting Cookbooks
+=================
+
+**nginx**
+---------
+
+.. code:: bash
+
+    $ knife cookbook site download nginx
+    $ tar zxf nginx*
+    $ rm nginx*.tar.gz
 
 ----
 
@@ -295,8 +295,10 @@ Add Cookbooks to Vagrant
       chef.cookbooks_path = "chef-repo/cookbooks"
       chef.data_bags_path = "chef-repo/data_bags"
       chef.add_recipe "apt"
-      chef.add_recipe "virtualenvwrapper"
       chef.add_recipe "redis::install_from_package"
+      chef.add_recipe "nginx"
+      chef.add_recipe "supervisor"
+      chef.add_recipe "paineldabolsa"
     end
 
 ----
@@ -309,22 +311,33 @@ Get Dependencies
 
 .. code:: bash
 
-    $ knife cookbook site download python
-    $ tar zxf python*
-
+    # Dependencies for ...
     $ knife cookbook site download runit
-    $ tar zxf runit*
     $ knife cookbook site download install_from
-    $ tar zxf install_from*
     $ knife cookbook site download metachef
-    $ tar zxf metachef*
+    $ tar zxf runit*
 
+    # Dependencies for ...
     $ knife cookbook site download build-essential
-    $ tar zxf build-essential*
     $ knife cookbook site download yum
-    $ tar zxf yum*
     $ knife cookbook site download yum-epel
-    $ tar zxf yum-epel*
+
+    # Dependencies for nginx
+    $ knife cookbook site download ohai
+    $ knife cookbook site download bluepill
+    $ knife cookbook site download rsyslog
+
+----
+
+Synced Folders
+==============
+
+.. code:: ruby
+
+    config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
+    config.vm.synced_folder ".", "/paineldabolsa", create: true
+
+https://docs.vagrantup.com/v2/synced-folders/basic_usage.html
 
 ----
 
@@ -357,6 +370,11 @@ https://github.com/mitchellh/vagrant-aws
 
 .. image:: images/aws-logo.png
     :height: 130px
+
+----
+
+Provider for Digital Ocean
+==========================
 
 ----
 
