@@ -22,7 +22,7 @@ Vagrant and Chef-Solo
 Painel da Bolsa Project
 =======================
 
-https://github.com/fernandoe/paineldabolsa-server
+Demo: http://www.paineldabolsa.com.br
 
 +---------------------------------------+-----------------------------------------+
 | .. image:: images/nginx-logo.jpg      |  .. image:: images/redis-logo.png       |
@@ -35,7 +35,7 @@ https://github.com/fernandoe/paineldabolsa-server
 |         :width: 300px                                                           |
 +---------------------------------------------------------------------------------+
 
-Demo: http://www.paineldabolsa.com.br
+https://github.com/fernandoe/paineldabolsa-server
 
 .. note::
 
@@ -46,12 +46,15 @@ Demo: http://www.paineldabolsa.com.br
 Get and Install Vagrant
 =======================
 
-https://www.vagrantup.com/downloads.html
+.. image:: images/vagrant-install.png
+    :height: 400px
 
 .. code:: bash
 
     $ vagrant --version
     Vagrant 1.6.5
+
+https://www.vagrantup.com/downloads.html
 
 .. note::
 
@@ -62,15 +65,18 @@ https://www.vagrantup.com/downloads.html
 Install VirtualBox
 ==================
 
+.. image:: images/virtualbox-logo.png
+    :width: 80px
+
+.. image:: images/virtualbox-install.png
+    :width: 600px
+
 .. code:: bash
 
     $ sudo apt-get install virtualbox
 
     $ vboxmanage --version
     4.3.10_Ubuntur93012
-
-.. image:: images/virtualbox-logo.png
-    :height: 400px
 
 ----
 
@@ -89,9 +95,9 @@ This command will create a *Vagrant* file with the minimun required configuratio
 
     - Remove comments
     
-    config.vm.box     = "precise32"
+    config.vm.box     = "precise64"
 
-    config.vm.box_url = "http://files.vagrantup.com/precise32.box"
+    config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
 ----
 
@@ -101,6 +107,9 @@ Up and Running
 .. code:: bash
 
     $ vagrant up
+
+.. image:: images/img-01.jpg
+    :width: 550px
 
 ----
 
@@ -112,6 +121,9 @@ Other Commands
     $ vagrant status
     $ vagrant ssh
     $ vagrant destroy
+
+.. image:: images/img-02.jpg
+    :width: 550px
 
 ----
 
@@ -183,9 +195,10 @@ Installation
     # chef-solo --version
     Chef: 11.16.4
 
+.. image:: images/img-03.jpg
+    :width: 550px
+
 ----
-
-
 
 Chef-Solo
 =========
@@ -248,11 +261,8 @@ Our first Chef cookbook
 Getting Cookbooks
 =================
 
-Our first Chef cookbook
------------------------
-
-**apt**
--------
+**virtualenvwrapper**
+---------------------
 
 .. code:: bash
 
@@ -318,6 +328,23 @@ Get Dependencies
 
 ----
 
+Putting it all together
+=======================
+
+.. code:: bash
+
+    $ vagrant up
+
+.. image:: images/img-05.jpg
+    :width: 550px
+
+.. note::
+
+    When used behind a proxy, you should press Ctrl+C and restart the process using vagrant reload.
+    #1 try: 10 minutes nd broke.
+
+----
+
 Providers
 =========
 
@@ -333,8 +360,11 @@ https://github.com/mitchellh/vagrant-aws
 
 ----
 
-Putting it all together
-=======================
+Questions?
+==========
+
+.. image:: images/img-04.jpg
+    :width: 550px
 
 ----
 
