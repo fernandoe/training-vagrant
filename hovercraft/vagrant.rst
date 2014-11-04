@@ -89,15 +89,17 @@ Project Setup
 
 This command will create a *Vagrant* file with the minimun required configuration.
 
+Boxes: http://www.vagrantbox.es
+
 .. note::
 
     The primary function of the Vagrantfile is to describe the type of machine required for a project, and how to configure and provision these machines.
 
     - Remove comments
     
-    config.vm.box     = "precise64"
+    config.vm.box     = "precise32"
 
-    config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+    config.vm.box_url = "http://files.vagrantup.com/precise32.box"
 
 ----
 
@@ -126,6 +128,9 @@ Other Commands
     :width: 550px
 
 ----
+
+:data-x: r+0
+:data-y: r+1100
 
 Vagrant Plugins
 ===============
@@ -179,9 +184,6 @@ Cookbook
 https://community.opscode.com/cookbooks-directory
 
 ----
-
-:data-x: r+0
-:data-y: r+1100
 
 Chef-Solo
 =========
@@ -258,6 +260,23 @@ Our first Chef cookbook
 
 ----
 
+:data-x: r-1100
+:data-y: r+0
+
+Getting Cookbooks
+=================
+
+**python**
+----------
+
+.. code:: bash
+
+    $ knife cookbook site download python
+    $ tar zxf python*
+    $ rm python*.tar.gz
+
+----
+
 Getting Cookbooks
 =================
 
@@ -286,6 +305,49 @@ Getting Cookbooks
 
 ----
 
+Getting Cookbooks
+=================
+
+**supervisor**
+--------------
+
+.. code:: bash
+
+    $ knife cookbook site download supervisor
+    $ tar zxf supervisor*
+    $ rm supervisor*.tar.gz
+
+----
+
+Creating Cookbooks
+==================
+
+**paineldabolsa**
+-----------------
+
+.. code:: bash
+
+    $ knife cookbook create paineldabolsa
+
+cookbook
+--------
+
+.. code:: ruby
+
+    template "#{node.nginx.dir}/sites-available/paineldabolsa.conf" do
+      source "nginx-paineldabolsa.conf.erb"
+      mode "0644"
+    end
+
+    nginx_site "paineldabolsa.conf"
+
+    template "/etc/supervisor.d/paineldabolsa.conf" do
+      source "supervisor-paineldabolsa.conf.erb"
+      mode "0644"
+    end
+
+----
+
 Add Cookbooks to Vagrant
 ========================
 
@@ -295,6 +357,7 @@ Add Cookbooks to Vagrant
       chef.cookbooks_path = "chef-repo/cookbooks"
       chef.data_bags_path = "chef-repo/data_bags"
       chef.add_recipe "apt"
+      chef.add_recipe "python"
       chef.add_recipe "redis::install_from_package"
       chef.add_recipe "nginx"
       chef.add_recipe "supervisor"
@@ -302,9 +365,6 @@ Add Cookbooks to Vagrant
     end
 
 ----
-
-:data-x: r-1100
-:data-y: r+0
 
 Get Dependencies
 ================
@@ -327,6 +387,8 @@ Get Dependencies
     $ knife cookbook site download bluepill
     $ knife cookbook site download rsyslog
 
+- Two more things...
+
 ----
 
 Synced Folders
@@ -337,7 +399,25 @@ Synced Folders
     config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
     config.vm.synced_folder ".", "/paineldabolsa", create: true
 
+
 https://docs.vagrantup.com/v2/synced-folders/basic_usage.html
+
+----
+
+Networking
+==========
+
+forwarded ports
+---------------
+
+.. code:: ruby
+
+    config.vm.network :forwarded_port, host: 8001, guest: 80
+    config.vm.network :forwarded_port, host: 8002, guest: 8000
+    config.vm.network :forwarded_port, host: 8003, guest: 9000
+
+
+https://docs.vagrantup.com/v2/networking/forwarded_ports.html
 
 ----
 
@@ -373,8 +453,22 @@ https://github.com/mitchellh/vagrant-aws
 
 ----
 
-Provider for Digital Ocean
-==========================
+AWS Provider
+============
+
+Installing
+----------
+
+.. code:: bash
+
+    $ vagrant plugin install vagrant-aws
+
+Using
+-----
+
+.. code:: bash
+
+    $ vagrant up --provider=aws
 
 ----
 
@@ -386,9 +480,9 @@ Questions?
 
 ----
 
-:data-x: 3800
-:data-y: 3800
-:data-scale: 10
+:data-x: 800
+:data-y: 4000
+:data-scale: 15
 :data-rotate-z: 0
 :data-rotate-x: 180
 :data-rotate-y: 0
